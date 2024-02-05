@@ -1,14 +1,14 @@
 #include "utf-8-validate.h"
 
-char utf_8_validate(unsigned long count, unsigned char *input) {
+bool utf_8_validate(unsigned long count, unsigned char *input) {
   unsigned long i;
-  char is_valid = 1;
+  bool is_valid = true;
 
   if (count != 0) {
     i = 0;
 
     while (
-      is_valid == 1 &&
+      is_valid == true &&
       i != count
     ) {
       if (
@@ -51,7 +51,7 @@ char utf_8_validate(unsigned long count, unsigned char *input) {
                     input[i] < 128 ||
                     input[i] > 191
                   ) {
-                    is_valid = 0;
+                    is_valid = false;
                   }
                 }
               } else {
@@ -76,32 +76,32 @@ char utf_8_validate(unsigned long count, unsigned char *input) {
                         input[i] < 128 ||
                         input[i] > 191
                       ) {
-                        is_valid = 0;
+                        is_valid = false;
                       }
                     } else {
-                      is_valid = 0;
+                      is_valid = false;
                     }
                   } else {
-                    is_valid = 0;
+                    is_valid = false;
                   }
                 } else {
-                  is_valid = 0;
+                  is_valid = false;
                 }
               }
             } else {
-              is_valid = 0;
+              is_valid = false;
             }
           } else {
             if (input[i - 1] < 194) {
-              is_valid = 0;
+              is_valid = false;
             }
           }
         } else {
-          is_valid = 0;
+          is_valid = false;
         }
       } else {
         if (input[i] > 127) {
-          is_valid = 0;
+          is_valid = false;
         }
       }
 

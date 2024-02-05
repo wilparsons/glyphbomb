@@ -43,6 +43,10 @@ char utf_8_validate(unsigned long count, unsigned char *input) {
                       input[i - 3] == 244 &&
                       input[i - 2] > 143
                     ) ||
+                    (
+                      input[i - 3] == 240 &&
+                      input[i - 2] < 144
+                    ) ||
                     i == count ||
                     input[i] < 128 ||
                     input[i] > 191
@@ -85,6 +89,10 @@ char utf_8_validate(unsigned long count, unsigned char *input) {
                 }
               }
             } else {
+              is_valid = 0;
+            }
+          } else {
+            if (input[i - 1] < 194) {
               is_valid = 0;
             }
           }
